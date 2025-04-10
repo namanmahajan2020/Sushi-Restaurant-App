@@ -42,7 +42,12 @@ class IntroPage extends StatelessWidget {
               style: TextStyle(color: Colors.grey[300], height: 2),
             ),
             const SizedBox(height: 25),
-            MyButton(text: "Get Started", onTap: () {  },)
+            MyButton(
+              text: "Get Started",
+              onTap: () {
+                Navigator.pushNamed(context, '/menuepage');
+              },
+            ),
           ],
         ),
       ),

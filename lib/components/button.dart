@@ -18,7 +18,13 @@ class MyButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(text, style: TextStyle(color: Colors.white)),
+            Text(
+              text,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             SizedBox(width: 10),
             Icon(Icons.arrow_forward, color: Colors.white),
           ],

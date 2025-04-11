@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sushi_restaurant_app/Pages/food_details_page.dart';
 import 'package:sushi_restaurant_app/components/button.dart';
 import 'package:sushi_restaurant_app/components/food_tile.dart';
 import 'package:sushi_restaurant_app/models/food.dart';
@@ -27,6 +28,14 @@ class _MenuePageState extends State<MenuPage> {
       rating: "4.3",
     ),
   ];
+
+  void navigateToFoodDetails(int index) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => FoodDetailsPage(food: foodMenu[index],)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,12 +120,16 @@ class _MenuePageState extends State<MenuPage> {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: foodMenu.length,
-              itemBuilder: (context, index) => FoodTile(food: foodMenu[index]),
+              itemBuilder:
+                  (context, index) => FoodTile(
+                    food: foodMenu[index],
+                    ontap: () => navigateToFoodDetails(index),
+                  ),
             ),
           ),
           const SizedBox(height: 25),
           Container(
-            decoration: BoxDecoration(
+            decoration: BoxDecoration( 
               color: Colors.grey[100],
               borderRadius: BorderRadius.circular(20),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sushi_restaurant_app/components/button.dart';
 import 'package:sushi_restaurant_app/models/food.dart';
 import 'package:sushi_restaurant_app/theme/colors.dart';
 
@@ -12,6 +13,22 @@ class FoodDetailsPage extends StatefulWidget {
 }
 
 class _FoodDetailsPageState extends State<FoodDetailsPage> {
+  int quantityCount = 0;
+  void decrementQuantity() {
+    setState(() {
+      if (quantityCount > 0) {
+        quantityCount--;
+      }
+    });
+  }
+
+  void incrementQuantity() {
+    setState(() {
+      quantityCount++;
+    });
+  }
+
+  void addToCart() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +72,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                   const SizedBox(height: 10),
                   Text(
                     widget.food.name +
-                        " is a traditional Japanese dish made with vinegared rice, fresh seafood, and vegetables, often wrapped in seaweed. It's known for its delicate flavors, artistic presentation, and cultural significance.From vibrant sashimi to creative rolls, sushi turns every meal into an elegant and unforgettable experience.",
+                        " is a traditional Japanese dish made with vinegared rice, fresh seafood, and vegetables, often wrapped in seaweed. It's known for its delicate flavors, artistic presentation, and cultural significance.",
                     style: TextStyle(color: Colors.grey[600], height: 2),
                   ),
                 ],
@@ -67,11 +84,58 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
             padding: const EdgeInsets.all(25),
             child: Column(
               children: [
-                Row(children: [Text("\$" + widget.food.price,style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),)]),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "\$" + widget.food.price,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: secondaryColor,
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          child: IconButton(
+                            onPressed: decrementQuantity,
+                            icon: const Icon(Icons.remove, color: Colors.white),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 40,
+                          child: Center(
+                            child: Text(
+                              quantityCount.toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: secondaryColor,
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          child: IconButton(
+                            onPressed: incrementQuantity,
+                            icon: const Icon(Icons.add, color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 25),
+                MyButton(text: "Add To Cart", onTap: addToCart),
               ],
             ),
           ),

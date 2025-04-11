@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sushi_restaurant_app/components/button.dart';
 import 'package:sushi_restaurant_app/models/food.dart';
+import 'package:sushi_restaurant_app/models/shop.dart';
 import 'package:sushi_restaurant_app/theme/colors.dart';
 
 class FoodDetailsPage extends StatefulWidget {
@@ -28,7 +30,50 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
     });
   }
 
-  void addToCart() {}
+  void addToCart() {
+    if (quantityCount > 0) {
+      final shop = context.read<Shop>();
+      shop.addToCart(widget.food, quantityCount);
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder:
+            (context) => AlertDialog(
+              backgroundColor: primaryColor,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      "Successfully added to cart  ",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: secondaryColor,
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.done, color: Colors.white),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +85,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: ListView(
                 children: [
-                  Image.asset(widget.food.iamgePath, height: 200),
+                  Image.asset(widget.food.imagePath, height: 200),
                   const SizedBox(height: 25),
                   Row(
                     children: [

@@ -16,7 +16,7 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   void navigateToFoodDetails(int index) {
-    final shop = context.read<Shop>() ;
+    final shop = context.read<Shop>();
     final foodMenu = shop.foodMenu;
     Navigator.push(
       context,
@@ -33,14 +33,31 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        leading: Icon(Icons.menu, color: Colors.grey[900]),
+        leading: Icon(Icons.menu, color: Colors.grey[900], size: 25),
         backgroundColor: Colors.transparent,
         title: Row(
           children: [
             SizedBox(width: 100),
-            Text("Tokyo", style: TextStyle(color: Colors.grey[900])),
+            Text(
+              "Tokyo",
+              style: TextStyle(
+                color: Colors.grey[900],
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ],
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 25.0),
+            child: IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/cartpage');
+              },
+              icon: Icon(Icons.shopping_cart, size: 25),
+            ),
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
